@@ -49,7 +49,7 @@ repositories {
 
 Quick example, assuming you already have a GUI application
 ```java
-IPCClient client = new IPCClient(345229890980937739L);
+IPCClient client = new IPCClient(345229890980937739L); // your client id
 client.setListener(new IPCListener() {
     @Override
     public void onReady(IPCClient client) {
