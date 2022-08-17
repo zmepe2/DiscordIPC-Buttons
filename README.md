@@ -2,10 +2,9 @@
 [download]: https://bintray.com/jagrosh/maven/DiscordIPC/_latestVersion
 [license]: https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg
 
-[ ![version][] ][download]
 [ ![license][] ](https://github.com/jagrosh/DiscordIPC/tree/master/LICENSE)
 
-# DiscordIPC
+# DiscordIPC with Buttons
 
 Connect locally to the Discord client using IPC for a subset of RPC features like Rich Presence and Activity Join/Spectate
 
@@ -13,7 +12,7 @@ Connect locally to the Discord client using IPC for a subset of RPC features lik
 # Features
 
 - Setting Rich Presence
-- Listen for Join, Spectate, and Join-Request events
+- Buttons
 - Detect and specify priority for client build (Stable, PTB, Canary)
 - 100% Java
 
@@ -23,26 +22,26 @@ Connect locally to the Discord client using IPC for a subset of RPC features lik
 First you'll need to add this project as a dependency. If you're using maven:
 ```xml
   <dependency>
-    <groupId>com.jagrosh</groupId>
-    <artifactId>DiscordIPC</artifactId>
-    <version>LATEST</version>
+    <groupId>me.cutenyami</groupId>
+    <artifactId>DiscordIPC-Buttons</artifactId>
+    <version>1.0.0</version>
   </dependency>
 ```
 ```xml
   <repository>
-    <id>central</id>
-    <name>bintray</name>
-    <url>http://jcenter.bintray.com</url>
+    <url>https://tykopvp.com</url>
   </repository>
 ```
 With gradle:
 ```groovy
 dependencies {
-    compile 'com.jagrosh:DiscordIPC:LATEST'
+    compileOnly 'me.cutenyami:DiscordIPC-Buttons:1.0.0'
 }
 
 repositories {
-    jcenter()
+    maven {
+        url = "https://tykopvp.com"
+    }
 }
 ```
 
@@ -51,29 +50,24 @@ repositories {
 Quick example, assuming you already have a GUI application
 ```java
 IPCClient client = new IPCClient(345229890980937739L);
-client.setListener(new IPCListener(){
+client.setListener(new IPCListener() {
     @Override
-    public void onReady(IPCClient client)
-    {
+    public void onReady(IPCClient client) {
         RichPresence.Builder builder = new RichPresence.Builder();
-        builder.setState("West of House")
-            .setDetails("Frustration level: Over 9000")
+        builder.setState("State")
+            .setDetails("Details")
+            .setButton1Text("Discord")
+            .setButton1Url("https://discord.com")
+            .setButton2Text("Google")
+            .setButton2Url("https://google.com")
             .setStartTimestamp(OffsetDateTime.now())
             .setLargeImage("canary-large", "Discord Canary")
-            .setSmallImage("ptb-small", "Discord PTB")
-            .setParty("party1234", 1, 6)
-            .setMatchSecret("xyzzy")
-            .setJoinSecret("join")
-            .setSpectateSecret("look");
+            .setSmallImage("ptb-small", "Discord PTB");
         client.sendRichPresence(builder.build());
     }
 });
 client.connect();
 ```
-
-### Other Examples
-* [Monster Hunter Gathering Hall App](https://github.com/MHGatheringHall/App) - App for displaying in-game info for a non-PC game series
-
 
 # Official Discord-RPC Bindings
 

@@ -63,7 +63,7 @@ public abstract class Pipe {
             try
             {
                 String location = getPipeLocation(i);
-                LOGGER.debug(String.format("Searching for IPC: %s", location));
+                //LOGGER.debug(String.format("Searching for IPC: %s", location));
                 pipe = createPipe(ipcClient, callbacks, location);
 
                 pipe.send(Packet.OpCode.HANDSHAKE, new JSONObject().put("v", VERSION).put("client_id", Long.toString(clientId)), null);
@@ -74,11 +74,11 @@ public abstract class Pipe {
                         .getJSONObject("config")
                         .getString("api_endpoint"));
 
-                LOGGER.debug(String.format("Found a valid client (%s) with packet: %s", pipe.build.name(), p.toString()));
+                //LOGGER.debug(String.format("Found a valid client (%s) with packet: %s", pipe.build.name(), p.toString()));
                 // we're done if we found our first choice
                 if(pipe.build == preferredOrder[0] || DiscordBuild.ANY == preferredOrder[0])
                 {
-                    LOGGER.info(String.format("Found preferred client: %s", pipe.build.name()));
+                    //LOGGER.info(String.format("Found preferred client: %s", pipe.build.name()));
                     break;
                 }
 

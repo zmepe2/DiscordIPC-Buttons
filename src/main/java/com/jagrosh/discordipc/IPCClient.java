@@ -115,7 +115,6 @@ public final class IPCClient implements Closeable
 
         pipe = Pipe.openPipe(this, clientId, callbacks, preferredOrder);
 
-        LOGGER.debug("Client is now connected and ready!");
         if(listener != null)
             listener.onReady(this);
         startReading();
@@ -164,7 +163,7 @@ public final class IPCClient implements Closeable
     public void sendRichPresence(RichPresence presence, Callback callback)
     {
         checkConnected(true);
-        LOGGER.debug("Sending RichPresence to discord: "+(presence == null ? null : presence.toJson().toString()));
+        //LOGGER.debug("Sending RichPresence to discord: "+(presence == null ? null : presence.toJson().toString()));
         pipe.send(OpCode.FRAME, new JSONObject()
                             .put("cmd","SET_ACTIVITY")
                             .put("args", new JSONObject()
