@@ -1,4 +1,4 @@
-this actually works since she took her repo off
+//this actually works since she took her repo off
 repositories {
     maven("https://jitpack.io")
 }
